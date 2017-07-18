@@ -1,0 +1,14 @@
+---
+version: "2"
+services:
+
+# IDE Environment 
+  nitro-ide:
+    image: "mayankt/nitro-ide"
+    restart: always
+    dns: 8.8.8.8
+    ports:
+      - "9090:80"
+    volumes:
+        - ${DATA_DIR}:/workspace:rw      
+    hostname: nitro-ide
