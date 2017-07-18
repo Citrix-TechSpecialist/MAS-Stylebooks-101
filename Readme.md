@@ -21,13 +21,13 @@ Stylebooks are a feature of [NetScaler MAS](http://docs.citrix.com/en-us/netscal
 
 Here is an [example of a Stylebook](./code/http-lb-stylebook.yaml) written in YAML for reference when discussing the basics of constructing a Stylebook.
 
-Stylebooks are broken down to [several logical sections](Click a section, construct, or reference name in the table below to view the details.), some of the main ones are listed below: 
+Stylebooks are broken down to [several logical sections](http://docs.citrix.com/en-us/netscaler-mas/11-1/stylebooks/stylebooks-grammar.html), some of the main ones are listed below: 
 
-  1. Header
-  2. Imports
-  3. Parameters
-  4. Components 
-  5. Outputs  
+  1. [Header](http://docs.citrix.com/en-us/netscaler-mas/11-1/stylebooks/stylebooks-grammar/header-section.html)
+  2. [Imports](http://docs.citrix.com/en-us/netscaler-mas/11-1/stylebooks/stylebooks-grammar/import-stylebooks-section.html)
+  3. [Parameters](http://docs.citrix.com/en-us/netscaler-mas/11-1/stylebooks/stylebooks-grammar/parameters-section.html)
+  4. [Components](http://docs.citrix.com/en-us/netscaler-mas/11-1/stylebooks/stylebooks-grammar/components.html) 
+  5. [Outputs](http://docs.citrix.com/en-us/netscaler-mas/11-1/stylebooks/stylebooks-grammar/outputs.html)  
 
 ### [Header](http://docs.citrix.com/en-us/netscaler-mas/11-1/stylebooks/stylebooks-grammar/header-section.html)
 This section lets you define the identity of a StyleBook and describe what it does. 
