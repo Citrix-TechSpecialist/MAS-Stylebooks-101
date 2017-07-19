@@ -70,7 +70,7 @@ You will notice in the left pane you have access to the repository data in Cloud
 
 # Shortcuts
 
-1. [IntroductionContents](../)
+1. [Introduction](../)
 2. [Module 1: Create a LoadBalancing Stylebook](../Module-1)
 3. [Module 2: Creating Composite Content Switching Stylebook](../Module-2)
 
