@@ -1,69 +1,69 @@
 #########
 # Header
 #########
-name: basic-lb-config                            
+name: basic-lb-config                    
 description: "A simple LB configuration."
-display-name: "LB StyleBook (HTTP)"
-author: "Mike Smith"
-namespace: com.example.stylebooks
-schema-version: "1.0"
-version: "0.1"
+display-name: "LB StyleBook (HTTP)"      
+author: Mike Smith                       
+namespace: com.example.stylebooks        
+schema-version: "1.0"                    
+version: "0.1"                           
 
 ##########
-# Imports 
+# Imports
 ##########
-import-stylebooks:
+import-stylebooks:                       
   -
-    namespace: netscaler.nitro.config
-    prefix: ns
-    version: "10.5"
+    namespace: netscaler.nitro.config    
+    prefix: ns                           
+    version: "10.5"                      
 
 ###################
 # Input Parameters
 ###################
-parameters:
+parameters:                                                 
   -
-    name: name
-    type: string
-    label: Application Name
-    description: Name of the application configuration.
-    required: true
+    name: name                                              
+    type: string                                            
+    label: Application Name                                 
+    description: Name of the LB vServer.                    
+    required: true                                          
   -
-    name: ip
+    name: ip                                                
     type: ipaddress
     label: Application Virtual IP (VIP)
-    description: Application VIP that the clients access.
+    description: Application VIP that the clients accesses.
     required: true
   -
-    name: lb-alg
+    name: lb-alg                                               
     type: string
     label: LoadBalancing Algorithm 
-    description: Choose the load balancing method for LB client requests.
-    allowed-values:   
-        - ROUNDROBIN
+    description: Choose the method for LB client requests.
+    allowed-values:                                            
+        - ROUNDROBIN                                           
         - LEASTCONNECTION
-    default: ROUNDROBIN
+    default: ROUNDROBIN                                        
 
 #############
 # Components
 #############
-components:
-  -
-    name: lbvserver-comp
-    type: ns::lbvserver
-    description: A Builtin Nitro StyleBook to build lbvserver object.
-    properties:
-      name: $parameters.name
-      servicetype: HTTP
-      ipv46: $parameters.ip
-      port: 80
-      lbmethod: $parameters.lb-alg
+components:                                                     
+  -                                                             
+    name: lbvserver-comp                                        
+    type: ns::lbvserver                                         
+    description: From Nitro StyleBook, makes lbvserver object.  
+    properties:                                                 
+      name: $parameters.name                                    
+      servicetype: SSL                                          
+      ipv46: $parameters.ip                                     
+      port: 80                                                  
+      lbmethod: $parameters.lb-alg                              
 
 ##########
 # Outputs
 ##########              
-outputs:
-  -
-    name: lbvserver-comp
-    value: $components.lbvserver-comp
-    description: The component that builds the Nitro lbvserver configuration object
+outputs:                                               
+  -                                                    
+    name: lbvserver-comp                               
+    value: $components.lbvserver-comp                  
+    description: Builds the Nitro lbvserver object     

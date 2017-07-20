@@ -1,0 +1,154 @@
+name: basic-gslb-config
+namespace: com.example.stylebooks
+version: "0.1"
+display-name: Active/Passive GSLB Configuration
+description: This StyleBook defines a Active/Passive configuration.
+schema-version: "1.0"
+import-stylebooks:
+  -
+    namespace: netscaler.nitro.config
+    version: "10.5"
+    prefix: ns
+parameters:
+  -
+    name: gslbvservername
+    type: string
+    label: GSLB vServer Name
+    description: Give a name to the GSLB vserver.
+    required: true
+  -
+    name: protocol
+    type: string
+    label: Protocol
+    description: Choose the GSLB vServer protocol
+    allowed-values:
+      - HTTP
+      - SSL
+      - TCP
+    default: HTTP
+  -
+    name: port
+    type: tcp-port
+    label: Port
+    description: Enter the Port number
+    default: 80
+  -
+    name: domain
+    type: string[]
+    label: GSLB domain
+    description: Give a domain for GSLB vserver
+    required: true
+  -
+    name: bkpdomain
+    type: string[]
+    label: Backup GSLB domain
+    description: Give backup a domain for GSLB vserver
+    required: true
+  -
+    name: servicename
+    type: string
+    label: Service Name
+    description: Enter the service name
+    required: true
+  -
+    name: serviceip
+    type: ipaddress
+    label: Service IP
+    description: Enter the service ip
+    required: true
+ 
+  -
+    name: sitename
+    type: string
+    label: Site Name
+    description: Choose the GSLB site name
+    allowed-values:
+      - UCS-STE
+      - LHR-STE
+    required: true
+   
+  -
+    name: backupservicename
+    type: string
+    label: Backup Service Name
+    description: Enter the backup service name
+    required: true
+  -
+    name: backupserviceip
+    type: ipaddress
+    label: Backup Service IP
+    description: Enter the backup service ip
+    required: true
+  -
+    name: backupsitename
+    type: string
+    label: Backup Site Name
+    description: Choose the backup GSLB site name
+    allowed-values:
+      - UCS-STE
+      - LHR-STE
+    required: true
+   
+components:
+  -
+    name: gslbvserver
+    type: ns::gslbvserver
+    properties:
+      name: $parameters.gslbvservername
+      servicetype: $parameters.protocol
+    components:
+        -
+          name: domain
+          type: ns::gslbvserver_domain_binding
+          repeat: $parameters.domain
+          repeat-item: dom
+          properties:
+            name: $parent.properties.name
+            domainname: $dom
+        -
+          name: service
+          type: ns::gslbservice
+          properties:
+            ip: $parameters.serviceip
+            servicename: $parameters.servicename
+            port: $parameters.port
+            servicetype: $parameters.protocol
+            sitename: $parameters.sitename
+          components:
+            -
+              name: servicebind
+              type: ns::gslbvserver_gslbservice_binding
+              properties:
+                name: $parent.parent.properties.name
+                servicename: $parent.properties.servicename
+  -
+    name: gslbvserver-bkp
+    type: ns::gslbvserver
+    properties:
+      name: $parameters.gslbvservername + "-backup"
+      servicetype: $parameters.protocol
+    components:
+        -
+          name: bkpdomain
+          type: ns::gslbvserver_domain_binding
+          repeat: $parameters.bkpdomain
+          repeat-item: bkpdom
+          properties:
+            name: $parent.properties.name
+            domainname: $bkpdom
+        -
+          name: backupservice
+          type: ns::gslbservice
+          properties:
+            ip: $parameters.backupserviceip
+            servicename: $parameters.backupservicename
+            port: $parameters.port
+            servicetype: $parameters.protocol
+            sitename: $parameters.backupsitename
+          components:
+            -
+              name: servicebindbackup
+              type: ns::gslbvserver_gslbservice_binding
+              properties:
+               name: $parent.parent.properties.name
+               servicename: $parent.properties.servicename

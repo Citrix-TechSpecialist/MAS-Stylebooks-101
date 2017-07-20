@@ -1,0 +1,105 @@
+name: ns-partitions
+description: This StyleBook creates admin partitions for multi-tenancy. 
+display-name: Admin Partition
+namespace: com.example.stylebooks
+schema-version: "1.0"
+version: "0.1"
+import-stylebooks:
+  -
+    namespace: netscaler.nitro.config
+    prefix: ns
+    version: "11.0"
+  -
+    namespace: com.citrix.adc.stylebooks
+    prefix: stlb
+    version: "1.0"
+  -
+    namespace: com.citrix.adc.commontypes
+    prefix: cmtypes
+    version: "1.0"
+parameters:
+  -
+    name: partitions
+    type: object[]
+    label: Admin partiions
+    description: Details of all Admin Paritions
+    required: true
+    parameters:
+      -
+        name: partitionname
+        type: string
+        label: Partition Name
+        description: Name of the admin partition
+        required: true
+      -
+        name: maxbandwidth
+        type: number
+        label: Maximum Bandwidth (Kbps)
+        description: Maximum Bandwidth (Kbps)
+        default: 10240
+        required: true
+      -
+        name: minbandwidth
+        type: number
+        label: Minimum Bandwidth (Kbps)
+        description: Minimum Bandwidth (Kbps)
+        default: 10240
+        required: true
+      -
+       name: maxconn
+       type: number
+       label: Maximum Connections
+       description: Maximum Connections
+       default: 1024
+       required: true
+      -
+       name: maxmemlimit
+       type: number
+       label: Maximum Memory (MB)
+       description: Maximum Memory (MB)
+       default: 10
+       required: true
+      -
+       name: partitionadmin
+       type: string
+       label: Userid of Partition Administrator
+       description: Userid of Partition Administrator
+       required: true
+      -
+       name: partitionadmin_pass
+       type: password
+       label: Initial Partition Administrator Password
+       description: Password of Partition Administrator
+       required: true
+
+components:
+  -
+   name: part-mla
+   type: ns::nspartition
+   repeat: $parameters.partitions
+   repeat-item: partition
+   properties:
+      partitionname: $partition.partitionname
+      maxbandwidth: $partition.maxbandwidth
+      minbandwidth: $partition.minbandwidth
+      maxconn: $partition.maxconn
+      maxmemlimit: $partition.maxmemlimit
+  -
+    name: partition-admin
+    type: ns::systemuser
+    repeat: $parameters.partitions
+    repeat-item: partition
+    properties:
+       username: $partition.partitionadmin
+       password: $partition.partitionadmin_pass
+       externalauth: DISABLED
+       promptstring: partition- + str($partition.partitionname)
+       timeout: 86400
+  -
+    name: partition-binding
+    type: ns::systemuser_nspartition_binding
+    repeat: $parameters.partitions
+    repeat-item: partition
+    properties:
+       username: $partition.partitionadmin
+       partitionname: $partition.partitionname

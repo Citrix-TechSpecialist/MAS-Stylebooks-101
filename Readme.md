@@ -2,7 +2,7 @@
 
 1. [Module 0: Access your Development IDE](./Module-0)
 2. [Module 1: Create a Simple LoadBalancing Stylebook](./Module-1)
-3. [Module 2: Creating Composite Content Switching Stylebook](./Module-2)
+3. [Module 2: Deploying Stylebooks with MAS](./Module-2)
 
 # Introduction 
 
@@ -44,6 +44,7 @@ This section lets you define the identity of a StyleBook and describe what it do
   schema-version: "1.0"                           # Stylebook's grammar version. As of right now, it always takes the value “1.0” for MAS 12.0 release.
   version: "0.1"                                  # The version number of the StyleBook. You can change the version number when you update the StyleBook.
   ```	
+>**NOTE:** It is important to note that the `namespace`, `version`, and `name` are three unique traits of a StyleBook. *No two StyleBooks can share identical values for those three keys in their definition*.
 
 ### [Imports](http://docs.citrix.com/en-us/netscaler-mas/11-1/stylebooks/stylebooks-grammar/import-stylebooks-section.html)
 
@@ -116,7 +117,6 @@ The components construct can use the input provided in the parameters section to
       ipv46: $parameters.ip                                     # This provides an input value for the property of lbvserver from the parameter second parameter `ip` defined above. 
       port: 80                                                  # In this example, this input value for `port` is hardcoded with `80`         
       lbmethod: $parameters.lb-alg                              # This provides an input value for the property of lbvserver from the parameter second parameter `lb-alg` defined above. 
-
   ```
 
 ### [Outputs](http://docs.citrix.com/en-us/netscaler-mas/11-1/stylebooks/stylebooks-grammar/outputs.html)

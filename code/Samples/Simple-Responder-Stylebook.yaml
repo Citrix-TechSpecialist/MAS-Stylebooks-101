@@ -1,0 +1,61 @@
+name: responder
+namespace: com.example.stylebooks
+version: "0.1"
+display-name: Responder Policy Config
+description: This StyleBook defines a simple responder configuration.
+schema-version: "1.0"
+import-stylebooks:
+  -
+    namespace: netscaler.nitro.config
+    version: "10.5"
+    prefix: ns
+parameters:
+  -
+    name: name
+    type: string
+    label: Responder Name
+    description: Responder Name
+    required: true
+  -
+    name: vserver
+    type: string
+    label: Vserver to bind the responder
+    required: false
+  -
+    name: responder-pol
+    type: string
+    label: Responder Policy
+    description: Provide the policy that will be evaluated.
+    default: Insert your policy here
+  -
+    name: responder-act
+    type: string
+    label: Responder Action
+    description: Provide the action that will be used when the reponder policy is triggered.
+    default: Insert your action here
+    
+components:
+  -
+    name: resp-act
+    type:  ns::responderaction
+    properties:
+      name: $parameters.name + "_RACT"
+      type: redirect
+      target: $parameters.responder-act
+    components:
+      -
+        name: resp-pol
+        type: ns::responderpolicy
+        properties:
+          name: $parameters.name + "_RPOL"
+          rule: $parameters.responder-pol
+          action: $parent.properties.name
+        components:
+          -
+            name: bind-pol
+            type: ns::lbvserver_responderpolicy_binding
+            properties:
+              name: $parameters.vserver
+              policyname: $parent.properties.name
+              priority: 100
+
