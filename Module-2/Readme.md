@@ -114,4 +114,12 @@ lb-virtual-port | LB vServer Port
 lb-alg | LB method on vServe
 svc-servers | List of IPs (ip) and service names (svc-name) of back end servers
 svc-port | Port the backend service is hosted on
-id | UUID of the target instance in MAS' inventory DB. This can be determined from MAS' logs if needed
+id | UUID of the target instance in MAS' inventory DB. This can be determined from MAS' logs or the following curl command shown below. 
+
+### Obtaining your NetScaler's UUID
+
+In the command above there is a parameter `id` which determines which NetScaler to issue this Stylebook configuration to. You can obtain the UUID value by entering in the following command by substituting `{your-variables}`: 
+
+```bash
+curl --insecure  -u {mas-admin}:{mas-password} -X GET https://{mas-fqdn-or-ip}/nitro/v1/config/ns?filter=display_name:{target-NSIP} | python -m json.tool | sed -n 's/^[[:space:]]*"id"[[:space:]]*:[[:space:]]*//p'   
+```
