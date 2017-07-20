@@ -6,8 +6,8 @@ By default MAS comes with built-in StyleBooks to deploy select Enterprise Applic
 
 Logon to NetScaler MAS' administration console via the following link: [https://mas.sl.americasreadiness.com](https://mas.sl.americasreadiness.com) using the following credentials: 
 
-**Username:** userX
-**Password:** < Provided during the event > 
+* **Username:** userX
+* **Password:** < Provided during the event > 
 
 Each user will have a dedicated admin partition to deploy NetScaler StyleBooks to and dedicated user account within MAS to manage. 
 
@@ -25,21 +25,18 @@ After selecting Create New, **Select** the StyleBook you have imported (likely a
 
 **For Example, provide the following values for the input fields:**
 
-  **Application Name*:** Web-App
-  **Application Virtual IP (VIP)*:** 172.16.9.19
-  **LoadBalancing Algorithm:** LEASTCONNECTION
-  **Application Server IPs** -- Add two servers : 
-
-    * Server 1: 
-      * *IP Address of the Server*: 172.16.5.10
-      * *Name of the service*: Entry-Portal-1
-  
-    * Server 2: 	
-      * *IP Address of the Server*: 172.16.5.11
-      * *Name of the service*: Entry-Portal-2
-  
-  **Service Port:** 8080
-  **Target Instances:** < Select your Admin Partition >
+  * **Application Name*:** Web-App
+  * **Application Virtual IP (VIP)*:** 172.16.9.19
+  * **LoadBalancing Algorithm:** LEASTCONNECTION
+  * **Application Server IPs** -- Add two servers : 
+	* *Server 1:* 
+	* **IP Address of the Server**: 172.16.5.10
+	* **Name of the service**: Entry-Portal-1
+	* *Server 2:*
+	* **IP Address of the Server**: 172.16.5.11
+	* **Name of the service**: Entry-Portal-2
+  * **Service Port:** 8080
+  * **Target Instances:** < Select your Admin Partition >
  
 Once completed, click `Create` to deploy your configuration and view the object created on your NetScaler instance. 
 
@@ -117,5 +114,4 @@ lb-virtual-port | LB vServer Port
 lb-alg | LB method on vServe
 svc-servers | List of IPs (ip) and service names (svc-name) of back end servers
 svc-port | Port the backend service is hosted on
-
-
+id | UUID of the target instance in MAS' inventory DB. This can be determined from MAS' logs if needed
