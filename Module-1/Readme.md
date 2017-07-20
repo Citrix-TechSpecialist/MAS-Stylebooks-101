@@ -173,7 +173,7 @@ components:
               servicename: $parent.properties.name   # Name of the service to bind to. Value here is derived by the parent component's value for "name" 
 ```
 
-Once completed, copy and paste all the content in `lb-only-stylebook.yaml` into [YAML Lint](http://www.yamllint.com/) syntax checker to validate your content. 
+Once completed, copy and paste all the content in `lb-only-stylebook.yaml` into [YAML Lint](http://www.yamllint.com/) syntax checker to validate your content. You can double check your work when completed by referencing your `lb-svc-stylebook.yaml` with a completed sample provided here [`lb-svc-stylebook-commenting.yaml`](../code/Samples/lb-srvc-stylebook-commenting.yaml)
 
 ## Concousion 
 
