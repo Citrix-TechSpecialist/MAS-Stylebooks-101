@@ -1,9 +1,9 @@
-name: ns-partitions
-description: This StyleBook creates admin partitions for multi-tenancy. 
-display-name: Admin Partition
-namespace: com.example.stylebooks
+name: ns-multi-partitions
+description: This StyleBook defines an admin partition
+display-name: Define Admin Partitions and their Administrators
+namespace: com.citrix.adc.stylebooks
 schema-version: "1.0"
-version: "0.1"
+version: "0.3"
 import-stylebooks:
   -
     namespace: netscaler.nitro.config
@@ -85,21 +85,30 @@ components:
       maxconn: $partition.maxconn
       maxmemlimit: $partition.maxmemlimit
   -
-    name: partition-admin
-    type: ns::systemuser
-    repeat: $parameters.partitions
-    repeat-item: partition
-    properties:
+   name: partition-admin
+   type: ns::systemuser
+   repeat: $parameters.partitions
+   repeat-item: partition
+   properties:
        username: $partition.partitionadmin
        password: $partition.partitionadmin_pass
        externalauth: DISABLED
        promptstring: partition- + str($partition.partitionname)
        timeout: 86400
   -
-    name: partition-binding
-    type: ns::systemuser_nspartition_binding
-    repeat: $parameters.partitions
-    repeat-item: partition
-    properties:
+   name: partition-binding
+   type: ns::systemuser_nspartition_binding
+   repeat: $parameters.partitions
+   repeat-item: partition
+   properties:
        username: $partition.partitionadmin
        partitionname: $partition.partitionname
+  -    
+   name: cmdpolicy-binding
+   type:  ns::systemuser_systemcmdpolicy_binding
+   repeat: $parameters.partitions
+   repeat-item: partition
+   properties:
+       username: $partition.partitionadmin
+       priority: 100
+       policyname: partition-admin
