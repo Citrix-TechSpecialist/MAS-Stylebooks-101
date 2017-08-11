@@ -53,17 +53,11 @@ After a few moments your IDE service will start and after 30 seconds you will be
   Here is a list of all the URLs for the 7 student environments:
   
   * [https://user1-ide.sl.americasreadiness.com](https://user1-ide.sl.americasreadiness.com)
-
   * [https://user2-ide.sl.americasreadiness.com](https://user2-ide.sl.americasreadiness.com)
-
   * [https://user3-ide.sl.americasreadiness.com](https://user3-ide.sl.americasreadiness.com)
-  
   * [https://user4-ide.sl.americasreadiness.com](https://user4-ide.sl.americasreadiness.com)
-  
   * [https://user5-ide.sl.americasreadiness.com](https://user5-ide.sl.americasreadiness.com)
-  
   * [https://user6-ide.sl.americasreadiness.com](https://user6-ide.sl.americasreadiness.com)
-  
   * [https://user7-ide.sl.americasreadiness.com](https://user7-ide.sl.americasreadiness.com)
 
 You will notice in the left pane you have access to the repository data in Cloud9's interface and can open a `Stylebook.yaml` within the `code` directory if you'd like to explore a bit. 
