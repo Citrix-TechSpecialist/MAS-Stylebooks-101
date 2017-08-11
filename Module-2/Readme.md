@@ -88,7 +88,7 @@ curl \
     },
     "target_devices": [
       {
-        "id": "bf59f09b-69e9-4623-8604-052d49a7a38c"
+        "id": "${NS-ADC_UUID}"
       }
     ]
   }
@@ -103,6 +103,7 @@ Required parameters for the `curl` command include :
 * **${style.book.namespace}**: Namespace of the StyleBook (as defined in the [Header](../))
 * **${stylebook.version}**: The Version of the Stylebook imported in MAS
 * **${stylebook-name}**: The Name of the desired Stylebook
+* **${NS-ADC-UUID}**: The unique ID of the NS instance you want to deploy the StyleBook to.
 
 The rest of the curl command consists of the input [parameters](../) defined in the StyleBook. In our case we have 
 
