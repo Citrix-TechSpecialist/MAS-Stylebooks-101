@@ -6,7 +6,7 @@ This module will be used at ServTech 2017 for TechTables. Cloud hosted resources
 
 # Accessing your VM
 
-1. Navigate to [https://portal.sl.americasreadiness.com](https://portal.sl.americasreadiness.com) to access your HTML5 bsed VM console through [Guacamole](https://vimeo.com/116207678).
+1. Navigate to [https://portal.sl.americasreadiness.com](https://portal.sl.americasreadiness.com) to access your HTML5 based VM console through [Guacamole](https://vimeo.com/116207678).
 
 2. Logon using your username and password : 
     * **Username:** User**X**
@@ -51,13 +51,20 @@ After a few moments your IDE service will start and after 30 seconds you will be
   >**Note:** the `X` in `userX-ide` corresponds to your user number.
 
   Here is a list of all the URLs for the 7 student environments:
-  [https://user1-ide.sl.americasreadiness.com](https://user1-ide.sl.americasreadiness.com)
-  [https://user2-ide.sl.americasreadiness.com](https://user2-ide.sl.americasreadiness.com)
-  [https://user3-ide.sl.americasreadiness.com](https://user3-ide.sl.americasreadiness.com)
-  [https://user4-ide.sl.americasreadiness.com](https://user4-ide.sl.americasreadiness.com)
-  [https://user5-ide.sl.americasreadiness.com](https://user5-ide.sl.americasreadiness.com)
-  [https://user6-ide.sl.americasreadiness.com](https://user6-ide.sl.americasreadiness.com)
-  [https://user7-ide.sl.americasreadiness.com](https://user7-ide.sl.americasreadiness.com)
+  
+  * [https://user1-ide.sl.americasreadiness.com](https://user1-ide.sl.americasreadiness.com)
+
+  * [https://user2-ide.sl.americasreadiness.com](https://user2-ide.sl.americasreadiness.com)
+
+  * [https://user3-ide.sl.americasreadiness.com](https://user3-ide.sl.americasreadiness.com)
+  
+  * [https://user4-ide.sl.americasreadiness.com](https://user4-ide.sl.americasreadiness.com)
+  
+  * [https://user5-ide.sl.americasreadiness.com](https://user5-ide.sl.americasreadiness.com)
+  
+  * [https://user6-ide.sl.americasreadiness.com](https://user6-ide.sl.americasreadiness.com)
+  
+  * [https://user7-ide.sl.americasreadiness.com](https://user7-ide.sl.americasreadiness.com)
 
 You will notice in the left pane you have access to the repository data in Cloud9's interface and can open a `Stylebook.yaml` within the `code` directory if you'd like to explore a bit. 
 
