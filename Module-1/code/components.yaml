@@ -1,0 +1,31 @@
+components:
+  -
+    name: lbvserver-comp
+    type: ns::lbvserver
+    description: A Builtin Nitro StyleBook to build lbvserver object.
+    properties:
+      name: $parameters.name
+      servicetype: HTTP
+      ipv46: $parameters.ip
+      port: 80
+      lbmethod: $parameters.lb-alg
+
+    components:                                      
+      -
+        name: svc-comp                               
+        type: ns::service                            
+        repeat: $parameters.svc-servers              
+        repeat-item: srv                             
+        properties:                                  
+          name: svc- + str($srv.svc-name)            
+          servicetype: HTTP                          
+          ip: $srv.ip                                
+          port: $parameters.svc-port    
+                       
+        components:                                  
+          -
+            name: member-bind                        
+            type: ns::lbvserver_service_binding      
+            properties:                              
+              name: $parent.parent.properties.name   
+              servicename: $parent.properties.name   

@@ -6,14 +6,14 @@ If you followed along in the [Introduction](../) you would have noticed that the
 add lb vserver ${vServer-Name} HTTP ${VIP} ${PORT} -lbmethod ${ROUNDROBIN || LEASTCONNECTION}
 ```
 
-What we need is to do next is dynamically add back-end hosted services that the Load Balancer can front end. We need a StyleBook which incorporates the addition of the following NS CLI commands to our logic: 
+What we need is to do next is dynamically add back-end hosted services that the Load Balancer can front end. **We need a StyleBook which incorporates the addition of the following NS CLI commands to our logic:** 
 
 ```
 add server ${Server-Name} ${IP-Address}
 add service ${Service-Name} ${Server-Name} HTTP ${PORT} 
 bind lb vserver ${vServer-Name} ${Service-Name}
 ```
->Note: There are placeholders for explicit parameters provided by the end user denoted as ${Input-Variable} 
+>Note: These are placeholders for explicit parameters provided by the end user denoted as ${Input-Variable} 
 
 ### Step 1: Open the `lb-only-stylebook.yaml` in the IDE editor
 ___
@@ -105,6 +105,9 @@ parameters:
     description: TCP port of back-end service    # Parameter details 
     default: 80                                  # Default port value if one is not specified. 
 ```
+
+[**Here is the raw text without comments to copy and paste**](./code/parameters.yaml)
+
 Once completed, the stylebook in its current state now will collect the following information: 
 
 GUI Input Label | Translated NetScaler Configuration
@@ -173,11 +176,13 @@ components:
               servicename: $parent.properties.name   # Name of the service to bind to. Value here is derived by the parent component's value for "name" 
 ```
 
-Once completed, copy and paste all the content in `lb-only-stylebook.yaml` into [YAML Lint](http://www.yamllint.com/) syntax checker to validate your content. You can double check your work when completed by referencing your `lb-svc-stylebook.yaml` with a completed sample provided here [`lb-svc-stylebook-commenting.yaml`](../code/Samples/lb-srvc-stylebook-commenting.yaml)
+###[**Here is the raw text without comments to copy and paste**](./code/components.yaml)
 
-## Concousion 
+Once completed, copy and paste all the content in `lb-only-stylebook.yaml` into [YAML Lint](http://www.yamllint.com/) syntax checker to validate your content. You can double check your work when completed by referencing your `lb-svc-stylebook.yaml` with a completed sample provided here [`lb-svc-stylebook-commenting.yaml`](./code/lb-srvc-stylebook-commenting.yaml) and a version without commenting can be found here [`lb-svc-stylebook.yaml`](./code/lb-srvc-stylebook.yaml)
 
-In its current state, the `lb-only-stylebook.yaml` stylebook will now do the following things in the following order: 
+## Conclusion
+
+In its current state, the [`lb-svc-stylebook.yaml`](./code/lb-srvc-stylebook.yaml) StyleBook will now do the following things in the following order: 
 
 1. **Create a LB vServer with:**
   * A lb vserver **name**

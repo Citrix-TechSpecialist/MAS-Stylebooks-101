@@ -1,0 +1,98 @@
+name: basic-lb-config                           
+description: "A simple LB configuration."       
+display-name: "LB StyleBook (HTTP)"             
+author: Mike Smith                              
+namespace: com.example.stylebooks               
+schema-version: "1.0"                           
+version: "0.1"                                  
+
+import-stylebooks:                       
+  -
+    namespace: netscaler.nitro.config    
+    prefix: ns                           
+    version: "10.5"                      
+
+parameters:                                                   
+  -
+    name: name                                                
+    type: string                                              
+    label: Application Name                                   
+    description: Name of the LB vServer.                      
+    required: true                                            
+  -
+    name: ip                                                  
+    type: ipaddress
+    label: Application Virtual IP (VIP)
+    description: Application VIP that the clients accesses.
+    required: true
+  -
+    name: lb-alg                                               
+    type: string
+    label: LoadBalancing Algorithm 
+    description: Choose the method for LB client requests.
+    allowed-values:                                            
+        - ROUNDROBIN                                           
+        - LEASTCONNECTION
+    default: ROUNDROBIN                                        
+  -
+    name: svc-servers                            
+    type: object[]                               
+    label: Application Server IPs                
+    description: Backend host Server IPs         
+    required: true                               
+    parameters:                                  
+      - 
+        name: ip                                 
+        label: IP Address of the Server          
+        description: IP Address of the Server    
+        type: ipaddress                          
+        required: true                           
+      - 
+        name: svc-name                           
+        label: Name of the service               
+        description: Name of the service         
+        type: string                             
+        required: true                           
+  -
+    name: svc-port                               
+    type: tcp-port                               
+    label: Service Port                          
+    description: TCP port of back-end service    
+    default: 80                                  
+
+components:                                                     
+  -                                                             
+    name: lbvserver-comp                                        
+    type: ns::lbvserver                                         
+    description: From Nitro StyleBook, makes lbvserver object.  
+    properties:                                                 
+      name: $parameters.name                                    
+      servicetype: SSL                                          
+      ipv46: $parameters.ip                                     
+      port: 80                                                  
+      lbmethod: $parameters.lb-alg                              
+
+    components:                                      
+      -
+        name: svc-comp                               
+        type: ns::service                            
+        repeat: $parameters.svc-servers              
+        repeat-item: srv                             
+        properties:                                  
+          name: svc- + str($srv.svc-name)            
+          servicetype: HTTP                          
+          ip: $srv.ip                                
+          port: $parameters.svc-port                 
+        components:                                  
+          -
+            name: member-bind                        
+            type: ns::lbvserver_service_binding      
+            properties:                              
+              name: $parent.parent.properties.name   
+              servicename: $parent.properties.name   
+
+outputs:                                               
+  -                                                    
+    name: lbvserver-comp                               
+    value: $components.lbvserver-comp                  
+    description: Builds the Nitro lbvserver object     
