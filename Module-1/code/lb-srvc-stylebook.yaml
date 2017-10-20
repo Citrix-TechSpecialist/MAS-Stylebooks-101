@@ -67,7 +67,7 @@ components:
     description: From Nitro StyleBook, makes lbvserver object.  
     properties:                                                 
       name: $parameters.name                                    
-      servicetype: SSL                                          
+      servicetype: HTTP                                          
       ipv46: $parameters.ip                                     
       port: 80                                                  
       lbmethod: $parameters.lb-alg                              
